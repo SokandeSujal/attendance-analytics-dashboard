@@ -37,3 +37,91 @@ No installation required. Just a modern web browser.
 6. Click "Analyze Attendance" to view your results
 
 ### File Structure
+
+```
+attendance-analytics-dashboard/
+├── index.html          # Main HTML structure
+├── styles.css          # Styling and responsive design
+├── script.js           # Application logic and calculations
+└── README.md          # Documentation
+```
+
+## How It Works
+
+The application parses attendance data in the standard ERP format:
+
+```
+SrNo    Subject    Subject Type    Present    Total Period    Percentage (%)
+1       Subject Name    TH         20         25              80.00
+```
+
+It then:
+1. Calculates overall and category-wise attendance percentages
+2. Identifies subjects below the 80% threshold
+3. Provides specific recommendations for each subject
+4. Displays visual analytics through charts and progress indicators
+5. Handles laboratory sessions with point-based attendance systems
+
+## Laboratory Attendance
+
+The system supports special calculations for laboratory subjects where attendance is tracked in points rather than sessions. For example, if a lab awards 3 points per session, recommendations will be given in terms of lab sessions rather than individual points.
+
+## Browser Compatibility
+
+- Chrome (recommended)
+- Firefox
+- Safari
+- Edge
+- Opera
+
+## Customization
+
+### Adding Laboratory Subjects
+
+To add support for additional laboratory subjects with point multipliers, edit the `labMultipliers` object in `script.js`:
+
+```javascript
+this.labMultipliers = {
+    'Your Lab Name': 3,  // 3 points per session
+    'Another Lab': 2,    // 2 points per session
+};
+```
+
+### Changing Theme Colors
+
+Modify CSS custom properties in `styles.css`:
+
+```css
+:root {
+    --primary-color: #5b64e5;
+    --success-color: #0ea574;
+    --warning-color: #e89c0b;
+    --danger-color: #dc3545;
+}
+```
+
+## Privacy
+
+All data processing happens locally in your browser. No attendance data is sent to any server or stored anywhere. When you close the browser, all data is cleared.
+
+## Contributing
+
+Contributions are welcome. If you find bugs or have feature suggestions, please open an issue or submit a pull request.
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Author
+
+Developed by [Sujal Sokande](https://www.linkedin.com/in/sujal-sokande-1028a62b1/)
+
+## Acknowledgments
+
+- Chart.js for visualization capabilities
+- Inter font family by Rasmus Andersson
+- Inspired by the need for better attendance tracking tools for students
+
+## Disclaimer
+
+This tool is designed to help students track their attendance. Always verify important attendance information with your institution's official records. The developer is not responsible for any discrepancies or actions taken based on the analysis provided by this tool.
