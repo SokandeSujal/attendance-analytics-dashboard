@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance Analytics Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+      <button id="themeToggle" aria-label="Toggle theme">
+        <svg
+          class="sun-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+          />
+        </svg>
+        <svg
+          class="moon-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <h1>Attendance Analytics</h1>
+          <p class="subtitle">Track and optimize your academic attendance</p>
+        </div>
+      </header>
+
+      <!-- Instructions Button -->
+      <div class="instructions-section">
+        <button class="instructions-btn" id="instructionsBtn">
+          <span class="btn-icon">?</span>
+          <span>How to Use This Tool</span>
+        </button>
+      </div>
+
+      <!-- Instructions Modal -->
+      <div class="modal-backdrop" id="instructionsModal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>
+              <span class="modal-icon">?</span>
+              How to Use This Tool
+            </h3>
+            <button class="modal-close" id="closeModal" aria-label="Close">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="instruction-steps">
+              <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h4>Open Your ERP Portal</h4>
+                  <p>
+                    Navigate to your attendance section in the student portal
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h4>Select ALL Data</h4>
+                  <p>
+                    Click and drag to select the entire attendance table from
+                    the header row (SrNo, Subject, Subject Type...) all the way
+                    to the last "Total" row
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h4>Copy & Paste</h4>
+                  <p>
+                    Press Ctrl+C (or Cmd+C on Mac) to copy, then paste into the
+                    text area below using Ctrl+V
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                  <h4>Analyze</h4>
+                  <p>
+                    Click "Analyze Attendance" to get detailed insights and
+                    recommendations
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="format-example">
+              <h4>Expected Format:</h4>
+              <pre>
+SrNo    Subject    Subject Type    Present    Total Period    Percentage (%)
+1    Calculus    TH    23    24    95.83
+        TU    8    8    100
+Theory    84    91    92.31
+Total    130    143    90.91</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Section -->
+      <div class="input-section">
+        <label for="attendanceInput" class="input-label">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+            <path
+              fill-rule="evenodd"
+              d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+            />
+          </svg>
+          Paste Your Attendance Data
+        </label>
+        <div class="textarea-wrapper">
+          <textarea
+            id="attendanceInput"
+            placeholder="Paste your complete attendance table here (including all headers and rows)...
+
+Example:
+SrNo    Subject    Subject Type    Present    Total Period    Percentage (%)
+1    Data Structures    TH    22    24    91.67
+..."
+            rows="10"
+          ></textarea>
+          <div class="input-hint" id="inputHint">Waiting for input...</div>
+        </div>
+
+        <div class="button-group">
+          <button id="analyzeBtn" class="btn btn-primary">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"
+              />
+            </svg>
+            Analyze Attendance
+          </button>
+          <button id="clearBtn" class="btn btn-secondary">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fill-rule="evenodd"
+                d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+              />
+            </svg>
+            Clear Data
+          </button>
+          <button id="exportBtn" class="btn btn-success" style="display: none">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fill-rule="evenodd"
+                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+              />
+            </svg>
+            Export Report
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Section -->
+      <div id="resultsSection" class="results-section" style="display: none">
+        <!-- Summary Cards -->
+        <div class="summary-section">
+          <h2 class="section-title">Overview</h2>
+          <div class="summary-cards">
+            <!-- Overall Card -->
+            <div class="summary-card overall-card">
+              <div class="card-icon">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 32 32"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M16 2a14 14 0 100 28 14 14 0 000-28zm0 4a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm2 18h-4v-2h1v-6h-1v-2h3v8h1v2z"
+                  />
+                </svg>
+              </div>
+              <h3>Overall Attendance</h3>
+              <div class="circular-progress" data-target="overall">
+                <svg class="progress-ring" width="140" height="140">
+                  <circle class="progress-ring-bg" cx="70" cy="70" r="60" />
+                  <circle class="progress-ring-fill" cx="70" cy="70" r="60" />
+                </svg>
+                <div class="progress-center">
+                  <span class="progress-value" id="overallPercentage">0</span>
+                  <span class="progress-unit">%</span>
+                </div>
+              </div>
+              <div class="card-details">
+                <span id="overallAttended">0</span> /
+                <span id="overallTotal">0</span> attended
+              </div>
+              <div id="overallStatus" class="status-badge"></div>
+            </div>
+
+            <!-- Theory Card -->
+            <div class="summary-card theory-card">
+              <div class="card-icon">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+              <h3>Theory Classes</h3>
+              <div class="mini-circular-progress" data-target="theory">
+                <svg class="mini-ring" width="90" height="90">
+                  <circle class="mini-ring-bg" cx="45" cy="45" r="38" />
+                  <circle class="mini-ring-fill" cx="45" cy="45" r="38" />
+                </svg>
+                <div class="mini-center">
+                  <span class="mini-value" id="theoryPercentage">0</span>
+                  <span class="mini-unit">%</span>
+                </div>
+              </div>
+              <div class="mini-details">
+                <span id="theoryAttended">0</span> /
+                <span id="theoryTotal">0</span>
+              </div>
+            </div>
+
+            <!-- Practical Card -->
+            <div class="summary-card practical-card">
+              <div class="card-icon">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+              <h3>Practical Classes</h3>
+              <div class="mini-circular-progress" data-target="practical">
+                <svg class="mini-ring" width="90" height="90">
+                  <circle class="mini-ring-bg" cx="45" cy="45" r="38" />
+                  <circle class="mini-ring-fill" cx="45" cy="45" r="38" />
+                </svg>
+                <div class="mini-center">
+                  <span class="mini-value" id="practicalPercentage">0</span>
+                  <span class="mini-unit">%</span>
+                </div>
+              </div>
+              <div class="mini-details">
+                <span id="practicalAttended">0</span> /
+                <span id="practicalTotal">0</span>
+              </div>
+            </div>
+
+            <!-- Tutorial Card -->
+            <div class="summary-card tutorial-card">
+              <div class="card-icon">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path
+                    d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                  />
+                  <path
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-width="2"
+                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+                  />
+                </svg>
+              </div>
+              <h3>Tutorial Classes</h3>
+              <div class="mini-circular-progress" data-target="tutorial">
+                <svg class="mini-ring" width="90" height="90">
+                  <circle class="mini-ring-bg" cx="45" cy="45" r="38" />
+                  <circle class="mini-ring-fill" cx="45" cy="45" r="38" />
+                </svg>
+                <div class="mini-center">
+                  <span class="mini-value" id="tutorialPercentage">0</span>
+                  <span class="mini-unit">%</span>
+                </div>
+              </div>
+              <div class="mini-details">
+                <span id="tutorialAttended">0</span> /
+                <span id="tutorialTotal">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subject Analysis -->
+        <div class="subject-analysis">
+          <h2 class="section-title">Subject-wise Breakdown</h2>
+          <div id="subjectCards" class="subject-cards-container"></div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-section">
+          <h2 class="section-title">Visual Analytics</h2>
+          <div class="chart-container">
+            <canvas id="attendanceChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="recommendations-section">
+          <h2 class="section-title">Recommendations</h2>
+          <div id="recommendations" class="recommendations-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>
+        Developed by
+        <a
+          href="https://www.linkedin.com/in/sujal-sokande-1028a62b1/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Sujal Sokande</a
+        >
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
